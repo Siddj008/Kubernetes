@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod-with-emptydir
+spec:
+  containers:
+    - name: mycontainer
+      image: nginx
+      volumeMounts:
+        - mountPath: /usr/share/nginx/html
+          name: emptydir-volume
+  volumes:
+    - name: emptydir-volume
+      emptyDir: {}  # Empty directory for temporary storage
+

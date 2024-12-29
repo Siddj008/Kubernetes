@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-nfs
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      volumeMounts:
+        - mountPath: /mnt/nfs
+          name: nfs-volume
+  volumes:
+    - name: nfs-volume
+      nfs:
+        server: <nfs-server-ip>  # IP of the NFS server
+        path: /path/to/nfs/share  # Path to the NFS share
+
