@@ -1,0 +1,20 @@
+apiVersion: apps/v1  # Specifies the API version for the ReplicaSet resource
+kind: ReplicaSet  # Indicates that this is a ReplicaSet resource
+metadata:
+  name: myrc  # The name of the ReplicaSet
+spec:
+  replicas: 3  # Number of replicas (Pods) to maintain
+  selector:
+    matchLabels:
+      env: dev  # Specifies the label selector to match Pods for this ReplicaSet
+  template:
+    metadata:
+      labels:
+        env: dev  # Labels to assign to the Pods created by the ReplicaSet
+    spec:
+      containers:
+        - name: nginxcontainer  # The name of the container inside the Pod
+          image: nginx  # The Docker image for the container (official Nginx image)
+          ports:
+            - containerPort: 80  # The port the container will listen on
+

@@ -1,0 +1,37 @@
+apiVersion: apps/v1  # Specifies the API version for StatefulSet resources
+kind: StatefulSet  # Defines the kind of resource as StatefulSet
+metadata:
+  name: db  # The name of the StatefulSet
+spec:
+  replicas: 3  # Number of replicas (Pods) to maintain
+  selector:
+    matchLabels:
+      app: mydb  # Label selector to identify Pods managed by this StatefulSet
+  serviceName: "dbservice"  # Name of the service that is used to access the Pods
+  template:
+    metadata:
+      labels:
+        app: mydb  # Labels applied to the Pods created by the StatefulSet
+    spec:
+      containers:
+        - name: mydbcontainer  # The name of the container inside the Pod
+          image: mysql  # The Docker image for the container (MySQL)
+          env:
+            - name: MYSQL_ROOT_PASSWORD  # Environment variable for MySQL root password
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-config  # ConfigMap that stores the password
+                  key: mysql-password  # Key from the ConfigMap for the password
+          ports:
+            - containerPort: 3306  # Port the container will expose for MySQL
+  volumeClaimTemplates:
+    - metadata:
+        name: dbb  # Name of the Persistent Volume Claim template
+      spec:
+        accessModes: ["ReadWriteMany"]  # Specifies that the volume can be mounted by multiple nodes
+        resources:
+          requests:
+            storage: 1Gi  # The requested storage size (1 GiB)
+          limits:
+            storage: 1Gi  # The storage limit (1 GiB)
+

@@ -1,0 +1,48 @@
+* Job
+
+apiVersion: batch/v1  # Specifies the API version for Job resources
+kind: Job  # Defines the kind of resource as Job
+metadata:
+  name: hellojob  # The name of the Job
+spec:
+  template:
+    metadata:
+      labels:
+        app: hello  # Labels applied to the Pods created by the Job
+    spec:
+      containers:
+        - name: hello  # The name of the container inside the Pod
+          image: busybox  # The Docker image for the container (busybox)
+          command: ["echo", "hello,k8s"]  # Command to run inside the container (prints "hello,k8s")
+      restartPolicy: Never  # Specifies that the Pod should not be restarted after completion
+  backoffLimit: 4  # The number of retries before considering the Job as failed
+
+
+
+
+
+
+
+
+
+
+* CronJob
+
+apiVersion: batch/v1  # Specifies the API version for CronJob resources
+kind: CronJob  # Indicates that this is a CronJob resource
+metadata:
+  name: hellojob  # The name of the CronJob
+spec:
+  schedule: "*/5 * * * *"  # Cron expression to specify the schedule (every 5 minutes)
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: hello  # Labels applied to the Pods created by the CronJob
+        spec:
+          containers:
+            - name: hello  # The name of the container inside the Pod
+              image: busybox  # The Docker image for the container (busybox)
+              command: ["echo", "hello,k8s"]  # Command to run inside the container (prints "hello,k8s")
+          restartPolicy: Never  # Specifies that the Pod should not be restarted after completion

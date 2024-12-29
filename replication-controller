@@ -1,0 +1,19 @@
+apiVersion: v1  # Specifies the API version for the ReplicationController resource
+kind: ReplicationController  # Indicates that this is a ReplicationController resource
+metadata:
+  name: myrc  # The name of the ReplicationController
+spec:
+  replicas: 3  # Number of replicas (Pods) to maintain
+  selector:
+    env: dev  # Specifies the label selector to match Pods for this ReplicationController
+  template:
+    metadata:
+      labels:
+        env: dev  # Labels to assign to the Pods created by the ReplicationController
+    spec:
+      containers:
+        - name: nginxcontainer  # The name of the container inside the Pod
+          image: nginx  # The Docker image for the container (official Nginx image)
+          ports:
+            - containerPort: 80  # The port the container will listen on
+
