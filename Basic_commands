@@ -1,0 +1,19 @@
+kubectl get nodes
+kubectl get pods
+kubectl get deployments
+kubectl get services
+kubectl get replicaSets
+kubectl get namespaces
+kubectl describe pod <pod_name>
+kubectl describe service <service_name>
+kubectl describe deployment <deployment_name>
+kubectl create -f <file.yaml>
+kubectl apply -f <file.yaml>
+kubectl delete -f <file.yaml>
+kubectl delete pod <pod_name>
+kubectl delete service <service_name>
+kubectl logs <pod_name>
+kubectl exec -it <pod_name> -- /bin/bash
+kubectl scale deployment <deployment_name> --replicas=<num>
+kubectl get pods --namespace=<namespace>
+kubectl port-forward <pod_name> <lo

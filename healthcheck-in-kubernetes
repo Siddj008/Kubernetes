@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-healthcheck
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      ports:
+        - containerPort: 80
+      livenessProbe:
+        httpGet:
+          path: /healthz  # The URL path to check for liveness
+          port: 80        # The port to check the health on
+        initialDelaySeconds: 5  # Wait for 5 seconds before checking
+        periodSeconds: 10       # Check every 10 seconds
+        failureThreshold: 3     # Fail the liveness probe after 3 failed attempts
+        successThreshold: 1     # It is considered successful after 1 successful check
+
+      readinessProbe:
+        httpGet:
+          path: /readiness  # The URL path to check for readiness
+          port: 80          # The port to check the readiness on
+        initialDelaySeconds: 5  # Wait for 5 seconds before checking
+        periodSeconds: 10       # Check every 10 seconds
+        failureThreshold: 3     # Fail the readiness probe after 3 failed attempts
+        successThreshold: 1     # It is considered successful after 1 successful check
+
